@@ -1,7 +1,8 @@
-1、Spring简介
+﻿1、Spring简介
 Spring是2003年兴起的- -个Java轻量级框架。它是为解决企业级开发的复杂性而创建的一-个框架。
 它是一个分层的JavaSE/EE Full-Stack(- 站式)框架。
 Spring是一-个容器， 负责管理整个应用中所有Bean的生命周期及之间的依赖关系。
+
 2、Spring与解耦合
 Spring的作用就是为了解耦合，即降低代码间耦合度。
 Spring将应用程序中的代码根据功能划分为两类:主业务逻辑与系统级服务。
@@ -11,13 +12,16 @@ Spring将应用程序中的代码根据功能划分为两类:主业务逻辑与�
 代码中。这样的话，主业务逻辑与交叉业务逻辑间的耦合度就比较高了。
 Spring针对以上两种高耦合度代码，使用了IoC和AOP两种技术降低它们的耦合度。所以，对Spring框架
 我们学习的重点就是IoC和AOP。
-3、Spring特 点
+
+3、Spring特点
 (1)非侵入式编程: P0JO， Plain 0ld Java object
 (2)容器
 (3) IoC: Inversion of Control (控制反转)
 (4) AOP: Aspect Oriented Programming (面向切面编程)
+
 4、Spring框架jar包的下载与目录结构
 下载地址: https://repo. spring.io/
+
 5、第一个Spring程序
 (1)导入jar包
 (2)创建Spring容器一配置文件
