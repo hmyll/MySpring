@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="aynu" class="com.abc.di05.School">
+        <property name="sname" value="安阳师院"/>
+    </bean>
+
+    <bean id="hnnu" class="com.abc.di05.School">
+        <property name="sname" value="河南师大"/>
+    </bean>
+
+    <bean id="some" class="com.abc.di05.Some" >
+        <property name="names" value="张三,李四"/>
+        <property name="myList" value="河南,安阳"/>
+        <property name="schools" ref="aynu"/>
+        <property name="mySet" value="软件工程,大数据"/>
+        <property name="myMap">
+            <map>
+                <entry key="phone" value="110"></entry>
+                <entry key="qq" value="666888"></entry>
+            </map>
+        </property>
+        <property name="mypros">
+            <props>
+                <prop key="email">tom@163.com</prop>
+                <prop key="adress">文明大道265号</prop>
+            </props>
+        </property>
+    </bean>
+
+
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <bean id="mySchool" class="com.abc.di02.School">
+        <property name="sname" value="aynu"/>
+    </bean>
+
+    <bean id="student" class="com.abc.di02.Student">
+        <!--<constructor-arg index="0" value="张三"/>-->
+        <!--<constructor-arg index="1" value="23"/>-->
+        <!--<constructor-arg index="2" ref="mySchool"/>-->
+        <constructor-arg  name="name" value="张三"/>
+        <constructor-arg  name="age" value="23"/>
+        <constructor-arg  name="school" ref="mySchool"/>
+        <!--<constructor-arg value="张三"/>-->
+        <!--<constructor-arg value="23"/>-->
+        <!--<constructor-arg ref="mySchool"/>-->
+    </bean>
+
+</beans>
