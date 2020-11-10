@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--注册组件扫描器，表示系统从com.abc.di05这个包及其子包中扫描组件-->
+    <context:component-scan base-package="com.abc.di05"/>
+
+    <bean id="mySchoo1" class="com.abc.di05.School">
+        <property name="sname" value="清华大学"/>
+    </bean>
+
+    <bean id="student" class="com.abc.di05.Student">
+        <property name= "name" value="李四"/>
+        <property name="age" value="19"/>
+        <property name="school" ref= "mySchoo1"/>
+    </bean>
+
+
+
+
+</beans>
