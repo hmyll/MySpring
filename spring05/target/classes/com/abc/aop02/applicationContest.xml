@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--注册目标对象-->
+    <bean id="someService" class="com.abc.aop02.SomeServiceImpl"/>
+
+    <!--注册切面-->
+    <bean id="myAspect" class="com.abc.aop02.MyAspect"/>
+
+    <!--AOP配置-->
+    <aop:config>
+        <!--定义切入点-->
+        <aop:pointcut id="doFirstPointcut" expression="execution(* *..aop02.ISomeService.doFirst(..))"/>
+        <aop:pointcut id="doSecondPointcut" expression="execution(* *..aop02.ISomeService.doSecond(..))"/>
+        <aop:pointcut id="doThirdPointcut" expression="execution(* *..aop02.ISomeService.doThird(..))"/>
+        <aop:pointcut id="doForthPointcut" expression="execution(* *..aop02.ISomeService.doForth(..))"/>
+        <aop:aspect ref="myAspect">
+            <!--前置通知-->
+            <aop:before method="myBefore" pointcut-ref="doFirstPointcut"/>
+            <aop:before method="myBefore(org.aspectj.lang.JoinPoint)" pointcut-ref="doFirstPointcut"/>
+            <!--后置通知-->
+            <aop:after-returning method="myAfterReturning" pointcut-ref="doSecondPointcut"/>
+            <aop:after-returning method="myAfterReturning(java.lang.Object)" pointcut-ref="doSecondPointcut" returning="result"/>
+            <!--环绕通知-->
+             <aop:around method="myAroundReturning" pointcut-ref="doThirdPointcut"/>
+            <!--异常通知-->
+            <aop:after-throwing method="myThrowing" pointcut-ref="doForthPointcut"/>
+            <aop:after-throwing method="myThrowing(java.lang.Exception)" pointcut-ref="doForthPointcut" throwing="ex"/>
+            <!--最终通知-->
+            <aop:after method="myAfter" pointcut-ref="doForthPointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
