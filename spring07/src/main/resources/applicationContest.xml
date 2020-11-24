@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--注册数据源：C3P0-->
+    <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="JdbcUrl" value="${jdbc.jdbcUrl}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--注册JDBC属性文件，告诉框架到哪里去找JDBC属性文件-->
+    <context:property-placeholder location="jdbc.properties"/>
+
+
+    <!--注册DAO，将数据源直接注入给DAO-->
+    <bean id="aDao" class="com.abc.dao.AccountDaoImpl">
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
+    <bean id="sDao" class="com.abc.dao.StockDaoImpl">
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
+
+    <!--注册service-->
+    <bean id="buyService" class="com.abc.service.BuyStockServiceImpl">
+        <property name="accountDao" ref="aDao"/>
+        <property name="stockDao" ref="sDao"/>
+    </bean>
+
+    <!--注册平台事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="myDataSource"/>
+    </bean>
+    <!--生成事务代理-->
+    <bean id="serviceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="buyService"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="open">ISOLATION_DEFAULT,PROPAGATION_REQUIRED</prop>
+                <!--
+                Spring默认的回滚方式: 发生运行时异常时回滚，发生受查异常提交。该默认的回滚方式，程序员通过配置是可以改变的。
+                -受查异常：发生指定的异常后回滚
+                +运行时异常：发生指定的异常后提交
+                -->
+                <prop key="buyStock">ISOLATION_DEFAULT,PROPAGATION_REQUIRED,-BuyStockException</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
